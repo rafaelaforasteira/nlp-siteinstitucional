@@ -1,0 +1,88 @@
+@import "tailwindcss";
+@import "@fontsource-variable/sora";
+
+/* ===== Tokens da marca ===== */
+@theme {
+  --font-sans: "Sora Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #050705; /* fundo principal */
+  --color-ink-2: #0b100b;
+  --color-brand-50: #f1fbe9;
+  --color-brand-200: #cdf3b0;
+  --color-brand-300: #b2ec8a;
+  --color-brand-400: #96e064; /* verde principal */
+  --color-brand-500: #6fc23f;
+  --color-brand-700: #2f6b1c;
+  --color-brand-900: #10260b;
+
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+/* ===== Fundo "vidro canelado" verde (referência escolhida) =====
+   Camada 1: faixas verticais que simulam vidro canelado.
+   Camada 2: brilho verde forte nas laterais e embaixo, escuro no centro. */
+.fluted {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgb(0 0 0 / 0.65) 0px,
+      rgb(0 0 0 / 0.05) 24px,
+      rgb(255 255 255 / 0.1) 40px,
+      rgb(0 0 0 / 0.7) 44px
+    ),
+    radial-gradient(120% 70% at 50% 115%, rgb(150 224 100 / 0.55), transparent 60%),
+    linear-gradient(
+      90deg,
+      var(--color-brand-400) 0%,
+      var(--color-brand-700) 14%,
+      transparent 30%,
+      transparent 70%,
+      var(--color-brand-700) 86%,
+      var(--color-brand-400) 100%
+    );
+  /* Some de cima para baixo para o topo ficar escuro como na referência */
+  mask-image: linear-gradient(to bottom, rgb(0 0 0 / 0.25), #000 70%);
+}
+
+/* Vinheta central para garantir leitura do texto */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    60% 65% at 50% 42%,
+    rgb(5 7 5 / 0.95),
+    rgb(5 7 5 / 0.6) 55%,
+    transparent 85%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-rise {
+    animation: none;
+  }
+}
